@@ -1,0 +1,89 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API Spec/Documentation for Club OS Code Challenge",
+    "version" : "v1",
+    "title" : "Code Challenge REST API"
+  },
+  "host" : "localhost:9999",
+  "basePath" : "/",
+  "tags" : [ {
+    "name" : "Basic",
+    "description" : "Base API"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "paths" : {
+    "/checkins" : {
+      "get" : {
+        "tags" : [ "Basic" ],
+        "summary" : "Retrieve checking for a specific location and for a specific date",
+        "description" : "",
+        "operationId" : "getCheckins",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "locationId",
+          "in" : "query",
+          "description" : "Location ID",
+          "required" : false,
+          "type" : "integer",
+          "default" : 1,
+          "format" : "int32"
+        }, {
+          "name" : "dateToCheck",
+          "in" : "query",
+          "description" : "Local Date",
+          "required" : false,
+          "type" : "string",
+          "default" : "2018-01-01"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DataWrapper"
+            }
+          }
+        }
+      }
+    },
+    "/members" : {
+      "get" : {
+        "tags" : [ "Basic" ],
+        "summary" : "Retrieve members for a specific location",
+        "description" : "",
+        "operationId" : "getMembers",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "locationId",
+          "in" : "query",
+          "description" : "Location ID",
+          "required" : false,
+          "type" : "integer",
+          "default" : 1,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DataWrapper"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "DataWrapper" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "type" : "object"
+        },
+        "error" : {
+          "type" : "object"
+        }
+      }
+    }
+  }
+}

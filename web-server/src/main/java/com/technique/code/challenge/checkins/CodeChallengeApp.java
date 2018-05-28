@@ -9,6 +9,7 @@ import java.net.URI;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.glassfish.grizzly.http.server.CLStaticHttpHandler;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.hk2.utilities.ServiceLocatorUtilities;
@@ -16,7 +17,7 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 
 public class CodeChallengeApp {
 
-  private static final String BASE_URI = "http://0.0.0.0:9999/api/";
+  private static final String BASE_URI = "http://0.0.0.0:9999/";
 
   public static void main(String[] args) {
     System.setProperty("env", "prod");
@@ -29,11 +30,12 @@ public class CodeChallengeApp {
           }
         }
     );
-    final CodeChallengeApp instance = injector
-        .getInstance(CodeChallengeApp.class);
+    final CodeChallengeApp instance = injector.getInstance(CodeChallengeApp.class);
     final HttpServer server = instance.startServer();
     System.out.println(String.format("Jersey app started with WADL available at "
         + "%sapplication.wadl\nHit ctrl-c to stop it...", BASE_URI));
+    CLStaticHttpHandler staticHttpHandler = new CLStaticHttpHandler(CodeChallengeApp.class.getClassLoader(), "swagger/");
+    server.getServerConfiguration().addHttpHandler(staticHttpHandler, "/api-docs");
   }
 
   private HttpServer startServer() {

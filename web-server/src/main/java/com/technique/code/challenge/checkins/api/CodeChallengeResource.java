@@ -1,11 +1,16 @@
 package com.technique.code.challenge.checkins.api;
 
+import static com.technique.code.challenge.checkins.service.Constants.BASE_CHECKIN_DATE;
+
 import com.google.inject.Inject;
 import com.technique.code.challenge.checkins.service.Checkin;
 import com.technique.code.challenge.checkins.service.CheckinService;
 import com.technique.code.challenge.checkins.service.Member;
 import com.technique.code.challenge.checkins.service.MemberService;
 import com.technique.jersey.configs.DataWrapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/")
+@Api(value = "Basic", description = "Base API")
 public class CodeChallengeResource {
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -32,23 +38,35 @@ public class CodeChallengeResource {
 
   @GET
   @Path("/checkins")
+  @ApiOperation(value = "Retrieve checking for a specific location and for a specific date", response = DataWrapper.class)
   @Produces(MediaType.APPLICATION_JSON)
-  public DataWrapper getCheckins(@QueryParam("locationId") final Integer locationId,
-      @QueryParam("dateToCheck") final String dateToCheck) {
+  public DataWrapper getCheckins(
+      @ApiParam(value = "Location ID", defaultValue = "1") @QueryParam("locationId") final Integer locationId,
+      @ApiParam(value = "Local Date", defaultValue = "2018-01-01") @QueryParam("dateToCheck") final String dateToCheck) {
     if (locationId == null || dateToCheck == null) {
       final DataWrapper errorResponse = new DataWrapper(null);
       errorResponse.setError("dateToCheck and locationId are required query parameters");
       return errorResponse;
     }
     final LocalDate checkinDate = new LocalDate(dateToCheck);
+    if (checkinDate.isBefore(BASE_CHECKIN_DATE) || checkinDate.isAfter(
+        BASE_CHECKIN_DATE.plusDays(90))) {
+      final DataWrapper errorResponse = new DataWrapper(null);
+      errorResponse.setError("only dates between 2018-01-01 and are valid dates fo"
+          + "r dateToCheck query parameter");
+      return errorResponse;
+    }
+
     final List<Checkin> checkins = checkinService.getCheckins(locationId, checkinDate);
     return new DataWrapper<>(checkins);
   }
 
   @GET
   @Path("/members")
+  @ApiOperation(value = "Retrieve members for a specific location", response = DataWrapper.class)
   @Produces(MediaType.APPLICATION_JSON)
-  public DataWrapper getMembers(@QueryParam("locationId") final Integer locationId) {
+  public DataWrapper getMembers(
+      @ApiParam(value = "Location ID", defaultValue = "1") @QueryParam("locationId") final Integer locationId) {
     if (locationId == null) {
       final DataWrapper errorResponse = new DataWrapper(null);
       errorResponse.setError("locationId is a required query parameter");

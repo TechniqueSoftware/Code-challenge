@@ -117,6 +117,19 @@
       <artifactId>jackson-datatype-joda</artifactId>
       <version>${com.fasterxml.jackson.datatype.version}</version>
     </dependency>
+    <!-- swagger -->
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-core</artifactId>
+      <scope>compile</scope>
+      <version>1.5.3</version>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.ws.rs</groupId>
+          <artifactId>jsr311-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
 
   <build>
@@ -190,6 +203,42 @@
         <configuration>
           <mainClass>com.technique.MainEngineeringDashboardApp</mainClass>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.github.kongchen</groupId>
+        <artifactId>swagger-maven-plugin</artifactId>
+        <version>3.1.4</version>
+        <configuration>
+          <apiSources>
+            <apiSource>
+              <springmvc>false</springmvc>
+              <locations>
+                <location>com.technique.code.challenge.checkins.api</location>
+              </locations>
+              <schemes>
+                <scheme>http</scheme>
+                <scheme>https</scheme>
+              </schemes>
+              <host>localhost:9999</host>
+              <basePath>/</basePath>
+              <info>
+                <title>Code Challenge REST API</title>
+                <version>v1</version>
+                <description>API Spec/Documentation for Club OS Code Challenge</description>
+              </info>
+              <swaggerDirectory>${basedir}/src/main/resources/swagger/</swaggerDirectory>
+            </apiSource>
+          </apiSources>
+          <!--<skipSwaggerGeneration>${swagger.skip}</skipSwaggerGeneration>-->
+        </configuration>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
