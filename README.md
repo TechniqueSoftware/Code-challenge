@@ -1,6 +1,6 @@
 # Code-challenge
 
-##Getting started
+## Getting started
 Clone the repo and navigate to the binaries folder and run the self contained jar
 
 ```
