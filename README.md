@@ -1,7 +1,7 @@
 # Code-challenge
 
 ## Getting started
-Clone the repo and navigate to the binaries folder and run the self contained jar
+Clone the repo and navigate to the binaries folder and run the self contained jar by executing the following commands in your command terminal
 
 ```
   cd binaries;
@@ -31,6 +31,10 @@ To test the server is functioning as expected and to get the API documentation n
 ```
 
 ## Code Challenge Instructions
+The server you are currently running contains two endpoints checkins and members.
+The checkins end point contains checkins for 10 locations from 2018-01-01 to 2018-04-01.
+The members end point contains all the members for each location and their membership type.
+
 For this challenge you will need to answer the following questions
 
 1. What is the busiest hour in the day for checkins across all locations?
