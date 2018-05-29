@@ -38,7 +38,7 @@ The members end point contains all the members for each location and their membe
 For this challenge you will need to answer the following questions
 
 1. What is the busiest hour in the day for checkins across all locations?
-2. What is the busiest day of the week for checkins?
+2. What is the busiest day of the week for checkins? E.g 6 am or 3pm
 3. What is the most common agreement type for members that checkin on Tuesdays?
 4. What is the most common agreement used for each location on Fridays?
 
