@@ -16,7 +16,7 @@
     "/checkins" : {
       "get" : {
         "tags" : [ "Basic" ],
-        "summary" : "Retrieve checking for a specific location and for a specific date",
+        "summary" : "Retrieve checking for a specific location and for a specific date. All times and locations are UTC timezone.",
         "description" : "",
         "operationId" : "getCheckins",
         "produces" : [ "application/json" ],

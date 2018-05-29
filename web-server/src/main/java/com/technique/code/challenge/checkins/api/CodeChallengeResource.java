@@ -38,7 +38,7 @@ public class CodeChallengeResource {
 
   @GET
   @Path("/checkins")
-  @ApiOperation(value = "Retrieve checking for a specific location and for a specific date", response = DataWrapper.class)
+  @ApiOperation(value = "Retrieve checking for a specific location and for a specific date. All times and locations are UTC timezone.", response = DataWrapper.class)
   @Produces(MediaType.APPLICATION_JSON)
   public DataWrapper getCheckins(
       @ApiParam(value = "Location ID", defaultValue = "1") @QueryParam("locationId") final Integer locationId,
