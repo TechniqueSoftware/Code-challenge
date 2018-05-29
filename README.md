@@ -42,6 +42,9 @@ For this challenge you will need to answer the following questions
 3. What is the most common agreement type for members that checkin on Tuesdays?
 4. What is the most common agreement used for each location on Fridays?
 
+### Notes
+The code for the server is provided but no questions about the code itself will be answered. This is because all the information you need to answer the coding challenge's questions should be documented in the api docs or in this README.
+
 ### What is a good submission?
 
 1. Self contained code. 
